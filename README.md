@@ -8,29 +8,60 @@
 [City-Explorer-Netlifiy](city-explorer-dua.netlify.app)
 
 ## Overview
-<!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for this class. (i.e. What's your problem domain?) -->
+[City-Explorer-Netlifiy](city-explorer-dua.netlify.app) this site is now deployed to API's by API's sever. 
+all the data comes from live API.
+
 
 ## Getting Started
-<!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
 
 ## Architecture
-<!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
+
+1-React
+
+2-Bootstrap
+
+3-Axios
+
+4- .env 
+REACT_APP_{name for the key}=key-value
+
+
 
 ## Change Log
-<!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an example:
 
-01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
 
 ## Credit and Collaborations
-<!-- Give credit (and a link) to other people or resources that helped you build this application. -->
 
 ## Feature 01:
-
 
 Estimate of time needed to complete: __2 hours___
 Start time: __2:00__
 
 Finish time: __4:00___
 
-Actual time needed to complete: _____
+Actual time needed to complete: ___2 hr__
+
+
+## Feature 02:
+
+Estimate of time needed to complete: __2 hours___
+Start time: __4:00__
+
+Finish time: __5:30___
+
+Actual time needed to complete: ___1.5 hr__
+
+## Feature 03:
+
+Estimate of time needed to complete: __2 hours___
+Start time: __5:30__
+
+Finish time: __7:00___
+
+Actual time needed to complete: ___1.5 hr__
+
+
+
+
+
 
