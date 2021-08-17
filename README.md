@@ -8,7 +8,7 @@
 [City-Explorer-Netlifiy](city-explorer-dua.netlify.app)
 
 ## Overview
-[City-Explorer-Netlifiy](city-explorer-dua.netlify.app) this site is now deployed to API's by API's sever. 
+**City-Explorer-Netlifiy** this site is now deployed to API's by API's sever. 
 all the data comes from live API.
 
 
