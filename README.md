@@ -5,6 +5,8 @@
 **Author**: Dua Nassrat Jaradat
 **Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
 
+[City-Explorer-Netlifiy](city-explorer-dua.netlify.app)
+
 ## Overview
 <!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for this class. (i.e. What's your problem domain?) -->
 
@@ -21,3 +23,14 @@
 
 ## Credit and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
+
+## Feature 01:
+
+
+Estimate of time needed to complete: __2 hours___
+Start time: __2:00__
+
+Finish time: __4:00___
+
+Actual time needed to complete: _____
+
