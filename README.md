@@ -26,11 +26,22 @@
 
 ## Feature 01:
 
-
 Estimate of time needed to complete: __2 hours___
 Start time: __2:00__
 
 Finish time: __4:00___
 
-Actual time needed to complete: _____
+Actual time needed to complete: ___2 hr__
+
+
+## Feature 02:
+
+Estimate of time needed to complete: __2 hours___
+Start time: __4:00__
+
+Finish time: __5:00___
+
+Actual time needed to complete: ___1 hr__
+
+
 

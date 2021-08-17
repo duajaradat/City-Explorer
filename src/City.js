@@ -10,7 +10,9 @@ class City extends React.Component {
         this.state = {
             searchCity: "",
             cityData: {},
-            displayData: false
+            imgData: "",
+            displayData: false,
+            displayMap: false,
         };
     }
 
@@ -22,7 +24,16 @@ class City extends React.Component {
             cityData: locationData.data[0],
             displayData: true,
         })
+        this.getMap();
         console.log("dua", this.state.cityData)
+    }
+    getMap = async () => {
+        let mapUrl = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom={18}`
+        let sourceData = await axios.get(mapUrl);
+        this.setState({
+            imgData: sourceData.config.url,
+            displayMap: true,
+        });
     }
 
     handleInput = (e) => {
@@ -44,6 +55,7 @@ class City extends React.Component {
                     </Form.Group>
                 </Form >
                 <Card className="card" style={{ width: "18rem" }}>
+                    {this.state.displayMap ? <Card.Img src={this.state.imgData} /> : ""}
                     {this.state.displayData ? <Card.Header>{this.state.cityData.display_name}</Card.Header> : ""}
 
                     {this.state.displayData ? <Card.Body> Latitude : {this.state.cityData.lat} <br /> Longitude : {this.state.cityData.lon} </Card.Body> : ""}
