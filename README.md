@@ -5,7 +5,7 @@
 **Author**: Dua Nassrat Jaradat
 **Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
 
-[City-Explorer-Netlifiy](city-explorer-dua.netlify.app)
+City-Explorer-Netlifiy: city-explorer-dua.netlify.app
 
 ## Overview
 **City-Explorer-Netlifiy** this site is now deployed to API's by API's sever. 
