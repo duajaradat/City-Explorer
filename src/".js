@@ -14,7 +14,7 @@ class City extends React.Component {
             imgData: "",
             displayData: false,
             displayMap: false,
-            forecastData: null,
+            forecastData: {},
             displayforecast: false,
             errorMsg: false,
         };
@@ -22,59 +22,60 @@ class City extends React.Component {
 
     getLocation = async (e) => {
         e.preventDefault();
+        console.log(this.state.searchCity,);
         let dataRequest = `https://eu1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_KEY}&q=${this.state.searchCity}&format=json`;
-        console.log(dataRequest);
+
         try {
             let locationData = await axios.get(dataRequest);
             this.setState({
                 cityData: locationData.data[0],
                 displayData: true,
-            }, () => { this.getMap() });
+                displayMap: true,
+                displayforecast: true,
+                errorMsg: false,
+            });
+            this.getMap();
+            this.forecast();
+
+            console.log("dua", this.state.cityData);
         } catch (error) {
-            console.log("getLocation");
             this.setState({
-                errorMsg: true,
                 displayData: false,
                 displayMap: false,
-                cityData: {},
-
+                displayforecast: false,
+                errorMsg: true,
             });
         }
-
-    };
-
-    getMap = async () => {
-        let mapUrl = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom={18}`;
-        console.log(mapUrl);
-        let sourceData = await axios.get(mapUrl);
-        this.setState({
-            imgData: sourceData.config.url,
-            displayMap: true,
-            errorMsg: false,
-        }, () => { this.forecast() });
-    }
-
-    forecast = async () => {
-        try {
-            let weatherUrl = `http://localhost:3001/weather?lat=${this.state.cityData.lat}&lon=${this.state.cityData.lon}&searchQuery=${this.state.searchCity}`;
-            let weatherRequest = await axios.get(weatherUrl);
-            console.log(weatherRequest);
+        this.getMap = async () => {
+            let mapUrl = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom={18}`;
+            console.log(mapUrl);
+            let sourceData = await axios.get(mapUrl);
             this.setState({
-                forecastData: weatherRequest.data[0],
-                displayforecast: true,
-            },
-                () => { console.log(this.state.forecastData) }
+                imgData: sourceData.config.url,
+                displayMap: true,
+                errorMsg: false,
+            });
+        };
 
-            )
-        } catch {
-            this.setState({
-                displayforecast: false,
+        this.forecast = async () => {
+            try {
+                let weatherUrl = `https://localhost:3001/weather?lat=${this.state.cityData.lat}&lon=${this.state.cityData.lon}&searchQuery=${this.state.searchCity}`;
+                let weatherRequest = await axios.get(weatherUrl);
+                // console.log(weatherRequest);
+                this.setState({
+                    forecastData: weatherRequest,
+                    displayforecast: true,
 
-            })
+                })
+
+            } catch {
+                this.setState({
+                    displayforecast: false,
+                })
+            }
+
         }
-    }
-
-
+    };
     handleInput = (e) => {
         e.preventDefault();
         this.setState({
@@ -130,9 +131,7 @@ class City extends React.Component {
                         ""
                     )}
                 </Card>
-                <div style={{ width: "100%", heigth: "20%" }}>
-                    {this.state.forecastData ? <Weather info={this.state.forecastData} /> : ""}
-                </div>
+                {this.state.displayforecast ? <Weather info={this.state.forecastData} /> : ""}
             </div>
         );
     }
