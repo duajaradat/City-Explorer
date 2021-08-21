@@ -9,9 +9,7 @@ class App extends React.Component {
     return (
       <div>
         <City form="data"/>
-        {/* <h2>
-          Movies App
-        </h2> */}
+      
       </div>   
     );
   }
