@@ -4,6 +4,8 @@ import { Form, Button, Card, Alert } from "react-bootstrap";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Weather from "./Weather";
+import Movies from "./Movies";
+import Error from "./Error";
 
 class City extends React.Component {
     constructor(props) {
@@ -16,7 +18,11 @@ class City extends React.Component {
             displayMap: false,
             forecastData: null,
             displayforecast: false,
-            errorMsg: false,
+            movieData: null,
+            displayMovie: false,
+            errorMsg: '',
+            displayError: false,
+            show: false,
         };
     }
 
@@ -29,14 +35,20 @@ class City extends React.Component {
             this.setState({
                 cityData: locationData.data[0],
                 displayData: true,
-            }, () => { this.getMap() });
+                displayError: false,
+            })
+            this.getMap();
+            this.forecast();
+            this.getMovie();
+
         } catch (error) {
             console.log("getLocation");
             this.setState({
-                errorMsg: true,
+                displayError: true,
                 displayData: false,
                 displayMap: false,
                 cityData: {},
+                errorMsg: `Error!!`
 
             });
         }
@@ -51,29 +63,49 @@ class City extends React.Component {
             imgData: sourceData.config.url,
             displayMap: true,
             errorMsg: false,
-        }, () => { this.forecast() });
+        });
     }
 
     forecast = async () => {
         try {
             let weatherUrl = `${process.env.REACT_APP_SERVER_LINK}/weather?lat=${this.state.cityData.lat}&lon=${this.state.cityData.lon}&searchQuery=${this.state.searchCity}`;
             let weatherRequest = await axios.get(weatherUrl);
-            console.log(weatherRequest);
+
             this.setState({
                 forecastData: weatherRequest.data[0],
                 displayforecast: true,
-            },
-                () => { console.log(this.state.forecastData) }
+            }, () => { console.log(this.state.forecastData) })
 
-            )
         } catch {
             this.setState({
                 displayforecast: false,
-
+                errorMsg: `Error!!`,
+                displayError: true,
             })
+            // }, () => { this.getMovie() })
         }
     }
 
+    getMovie = async () => {
+        try {
+            let movieUrl = `${process.env.REACT_APP_SERVER_LINK}/movies?searchQuery=${this.state.searchCity}`;
+            let moviesRequest = await axios.get(movieUrl);
+            console.log(moviesRequest);
+            this.setState({
+                movieData: moviesRequest.data,
+                displayMovie: true,
+            }, () => { console.log(this.state.movieData) })
+
+        } catch {
+            this.setState({
+                displayMovie: false,
+                errorMsg: `Error!!`,
+                displayError: true,
+
+            })
+
+        }
+    }
 
     handleInput = (e) => {
         e.preventDefault();
@@ -84,7 +116,7 @@ class City extends React.Component {
 
     render() {
         return (
-            <div>
+            <>
                 <Form className="form">
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Control
@@ -119,23 +151,37 @@ class City extends React.Component {
                     ) : (
                         ""
                     )}
-                    {this.state.errorMsg ? (
-                        <Alert variant="danger" dismissible>
-                            <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
-                            <p>
-                                Data does not exists.
-                            </p>
-                        </Alert>
-                    ) : (
-                        ""
-                    )}
                 </Card>
-                <div style={{ width: "100%", heigth: "20%" }}>
-                    {this.state.forecastData ? <Weather info={this.state.forecastData} /> : ""}
-                </div>
-            </div>
+
+                {this.state.displayforecast ? <Card>
+                    <Card.Header>WEATHER</Card.Header>
+                    <Card.Body>
+                        <Card.Text>
+                            {this.state.forecastData ? <Weather info={this.state.forecastData} /> : ""}
+                        </Card.Text>
+                    </Card.Body>
+                </Card> : ""}
+
+
+                {this.state.displayMovie ? <Card>
+                    <Card.Header>MOVIES</Card.Header>
+                    <Card.Body>
+                        <Card.Title>Movies here</Card.Title>
+                        <Card.Text>
+                            {this.state.movieData ? <Movies info={this.state.movieData} /> : ""}
+                        </Card.Text>
+                    </Card.Body>
+                </Card> : ""}
+                {this.state.displayError ? <Error error={this.state.errorMsg}> </Error> : ""}
+
+
+            </>
         );
     }
 }
+
+
+
+
 
 export default City;
