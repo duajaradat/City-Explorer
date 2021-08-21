@@ -1,0 +1,13 @@
+header{
+    text-align: center;
+    color: rgb(198, 212, 216);
+    margin-top: 30px;
+    
+}
+body{
+    background-image:url("city.jpg") ;
+    /* background-repeat: no-repeat; */
+    height: 100%;
+    width:100%;
+   
+}

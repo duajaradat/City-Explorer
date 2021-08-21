@@ -8,10 +8,11 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h2>Weather Forecast App</h2>
         <City form="data"/>
-      </div>
-      
+        {/* <h2>
+          Movies App
+        </h2> */}
+      </div>   
     );
   }
 }
