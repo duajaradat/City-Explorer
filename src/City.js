@@ -5,7 +5,7 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Weather from "./Weather";
 import Movies from "./Movies";
-import Error from "./Error";
+
 
 class City extends React.Component {
     constructor(props) {
@@ -20,8 +20,7 @@ class City extends React.Component {
             displayforecast: false,
             movieData: null,
             displayMovie: false,
-            errorMsg: '',
-            displayError: false,
+            errorMsg: false,
             show: false,
         };
     }
@@ -35,23 +34,21 @@ class City extends React.Component {
             this.setState({
                 cityData: locationData.data[0],
                 displayData: true,
-                displayError: false,
             })
-            this.getMap();
-            this.forecast();
-            this.getMovie();
 
         } catch (error) {
             console.log("getLocation");
             this.setState({
-                displayError: true,
+                errorMsg: true,
                 displayData: false,
                 displayMap: false,
                 cityData: {},
-                errorMsg: `Error!!`
 
             });
         }
+        this.getMap();
+        this.forecast();
+        this.getMovie();
 
     };
 
@@ -79,8 +76,6 @@ class City extends React.Component {
         } catch {
             this.setState({
                 displayforecast: false,
-                errorMsg: `Error!!`,
-                displayError: true,
             })
             // }, () => { this.getMovie() })
         }
@@ -99,8 +94,6 @@ class City extends React.Component {
         } catch {
             this.setState({
                 displayMovie: false,
-                errorMsg: `Error!!`,
-                displayError: true,
 
             })
 
@@ -172,9 +165,17 @@ class City extends React.Component {
                         </Card.Text>
                     </Card.Body>
                 </Card> : ""}
-                {this.state.displayError ? <Error error={this.state.errorMsg}> </Error> : ""}
 
-
+                {this.state.errorMsg ? (
+                    <Alert variant="danger" dismissible >
+                        <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+                        <p>
+                            Data does not exists.
+                        </p>
+                    </Alert>
+                ) : (
+                    ""
+                )}
             </>
         );
     }
